@@ -41,16 +41,11 @@ def route_and_respond(message, intent_data):
     data = completion.json()
 
     if "error" in data:
-        error_msg = f"API Error (Router): {data.get('error', data)}"
-        print(error_msg)
         return "Sorry, I encountered an API error: " + str(data.get("error"))
         
     if "choices" not in data:
-        print(f"Unexpected API response (Router): {data}")
         return "Sorry, I encountered an unexpected error."
 
     final_response = data["choices"][0]["message"]["content"]
-
     log_route(intent, confidence, message, final_response)
-
     return final_response

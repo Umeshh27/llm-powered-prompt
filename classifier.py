@@ -46,19 +46,9 @@ def classify_intent(message):
 
         data = response.json()
 
-        print("API response:", data)
-
-        if "choices" not in data:
-            raise Exception(data)
-
         text = data["choices"][0]["message"]["content"]
-
         text = text.replace("```json", "").replace("```", "").strip()
-
         return json.loads(text)
 
     except Exception as e:
-
-        print("Classifier error:", e)
-
         return {"intent": "unclear", "confidence": 0.0}
